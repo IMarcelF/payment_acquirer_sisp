@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="redirect_form">
+        <form t-att-action="api_url" method="post">
+            <input type="hidden" name='transactionCode' t-att-value='transactionCode'/>
+            <input type="hidden" name='posID' t-att-value='posID'/>
+            <input type="hidden" name='merchantRef' t-att-value='merchantRef'/>
+            <input type="hidden" name='merchantSession' t-att-value='merchantSession'/>
+            <input type="hidden" name='amount' t-att-value='amount'/>
+            <input type="hidden" name='currency' t-att-value='sisp_currency'/>
+            <input type="hidden" name='is3DSec' t-att-value='is3DSec'/>
+            <input type="hidden" name='urlMerchantResponse' t-att-value='urlMerchantResponse'/>
+            <input type="hidden" name='languageMessages' t-att-value='languageMessages'/>
+            <input type="hidden" name='timeStamp' t-att-value='timeStamp'/>
+            <input type="hidden" name='fingerprintversion' t-att-value='fingerprintversion'/>
+            <input type="hidden" name='entityCode' t-att-value='entityCode'/>
+            <input type="hidden" name='referenceNumber' t-att-value='referenceNumber'/>
+            <input type="hidden" name='fingerprint' t-att-value='fingerprint'/>
+        </form>
+    </template>
+
+</odoo>
