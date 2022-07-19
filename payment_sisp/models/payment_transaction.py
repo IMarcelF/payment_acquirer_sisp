@@ -47,7 +47,6 @@ class PaymentTransaction(models.Model):
             'FingerPrintVersion': sisp_tx_values['fingerprintversion'],
         }
         sisp_tx_values['api_url'] = '{}?{}'.format(self.acquirer_id.sisp_endpoint, urls.url_encode(query_string))
-        self.reference = sisp_tx_values['merchantRef']
         return sisp_tx_values
 
     @api.model
@@ -77,6 +76,7 @@ class PaymentTransaction(models.Model):
             'merchantRef'), data.get('messageType'), data.get('merchantRespMerchantRef')
         if message_type in SUCCESS_MESSAGE_TYPE and merchant_resp_merchant_ref:
             generated_finger_print = self._generate_response_fingerprint(data)
+            print('generated_finger_print: ', generated_finger_print)
             if generated_finger_print == data.get('resultFingerPrint'):
                 self._set_done()
             else:
@@ -109,7 +109,7 @@ class PaymentTransaction(models.Model):
         return base64.b64encode(hashlib.sha512(bytes(to_hash, "ascii")).digest()).decode("ascii")
 
     def _generate_response_fingerprint(self, kwargs):
-        to_hash = base64.b64encode(hashlib.sha512(bytes(kwargs['posAutCode'], "ascii")).digest()).decode("ascii")
+        to_hash = base64.b64encode(hashlib.sha512(bytes(self.acquirer_id.sisp_pos_aut_code, "ascii")).digest()).decode("ascii")
         to_hash = '{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}'.format(
             to_hash,
             kwargs['messageType'],
