@@ -24,7 +24,7 @@
     'sequence': 380,
     'summary': 'Payment Acquirer: SISP Implementation (Cabo Verde)',
     'version': '1.0',
-    'description': """SISP Payment Acquirer - Cabo Verde""",
+    'description': """SISP Payment Acquirer: The Cape-verdean Payment Gateway Integration.""",
     "author": "MARCEL YEKINI",
     'support': 'iekinyfernandes@gmail.com',
     'website': '#',
