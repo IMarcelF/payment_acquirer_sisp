@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <xpath expr='//group[@name="acquirer"]' position='inside'>
                 <group attrs="{'invisible': [('provider', '!=', 'sisp')]}">
-                    <field name="sisp_pos_id" string="POS ID" attrs="{'required': [('provider', '=', 'sisp'), ('state', '!=', 'disabled')]}"/>
+                    <field name="sisp_pos_id" string="POS ID" attrs="{'required': [('provider', '=', 'sisp'), ('state', '!=', 'disabled')]}" password="True"/>
                     <field name="sisp_pos_aut_code" string="POS Aut Code" attrs="{'required': [('provider', '=', 'sisp'), ('state', '!=', 'disabled')]}" password="True"/>
                     <field name="sisp_endpoint" string="Endpoint" attrs="{'required': [('provider', '=', 'sisp'), ('state', '!=', 'disabled')]}"/>
                 </group>
