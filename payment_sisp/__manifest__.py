@@ -29,7 +29,6 @@
     'support': 'iekinyfernandes@gmail.com',
     'website': '#',
     'live_test_url': '#',
-    "development_status": "Beta",
     'license': 'LGPL-3',
     'depends': ['payment'],
     'data': [
