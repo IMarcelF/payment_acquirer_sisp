@@ -27,6 +27,7 @@
     'description': """SISP Payment Acquirer: The Cape-verdean Payment Gateway Integration""",
     "author": "MARCEL YEKINI",
     'support': 'iekinyfernandes@gmail.com',
+	"images": ["static/description/assets/main_screenshot.png"],
     'website': '#',
     'live_test_url': '#',
     'license': 'LGPL-3',
