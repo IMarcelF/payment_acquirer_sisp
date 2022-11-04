@@ -28,7 +28,6 @@
     "author": "MARCEL YEKINI",
     'support': 'iekinyfernandes@gmail.com',
     "images": ["static/description/assets/img/main_screenshot.png"],
-    'website': '#',
     'live_test_url': '#',
     'license': 'LGPL-3',
     'depends': ['payment'],
