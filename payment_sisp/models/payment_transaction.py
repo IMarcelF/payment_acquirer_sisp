@@ -76,7 +76,6 @@ class PaymentTransaction(models.Model):
             'merchantRef'), data.get('messageType'), data.get('merchantRespMerchantRef')
         if message_type in SUCCESS_MESSAGE_TYPE and merchant_resp_merchant_ref:
             generated_finger_print = self._generate_response_fingerprint(data)
-            print('generated_finger_print: ', generated_finger_print)
             if generated_finger_print == data.get('resultFingerPrint'):
                 self._set_done()
             else:
