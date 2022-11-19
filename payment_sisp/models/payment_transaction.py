@@ -4,6 +4,7 @@ from datetime import datetime
 import logging
 import hashlib
 import base64
+import json
 
 from odoo import _, api, models
 from odoo.exceptions import ValidationError
@@ -47,6 +48,8 @@ class PaymentTransaction(models.Model):
             'FingerPrintVersion': sisp_tx_values['fingerprintversion'],
         }
         sisp_tx_values['api_url'] = '{}?{}'.format(self.acquirer_id.sisp_endpoint, urls.url_encode(query_string))
+        if self.acquirer_id.sisp_3ds:
+            sisp_tx_values['purchaseRequest'] = self._generate_purchase_request()
         return sisp_tx_values
 
     @api.model
@@ -128,3 +131,44 @@ class PaymentTransaction(models.Model):
             kwargs['merchantRespReloadCode']
         )
         return base64.b64encode(hashlib.sha512(bytes(to_hash, "ascii")).digest()).decode("ascii")
+
+    def _generate_purchase_request(self):
+        purchase_request = {
+            'acctID': 'x',
+            'acctInfo': {
+                'chAccAgeInd': '05',
+                'chAccChange':  self.env.user.write_date.strftime("%Y%m%d"),
+                'chAccDate': self.env.user.create_date.strftime("%Y%m%d"),
+                'chAccPwChange': self.env.user.write_date.strftime("%Y%m%d"),
+                'chAccPwChangeInd': '05',
+                'suspiciousAccActivity': '01'
+            },
+
+            'email': self.env.user.partner_id.email or None,
+
+            'addrMatch': 'Y',
+            'billAddrCity': self.env.user.partner_id.city or None,
+            'billAddrCountry': '620',
+            'billAddrLine1': self.env.user.partner_id.street or None,
+            'billAddrLine2': self.env.user.partner_id.street2 or None,
+            'billAddrLine3': self.env.user.partner_id.street2 or None,
+            'billAddrPostCode': self.env.user.partner_id.zip or None,
+            'billAddrState': self.env.user.partner_id.state_id.code or None,
+
+            'shipAddrCity': self.env.user.partner_id.city or None,
+            'shipAddrCountry': '620',
+            'shipAddrLine1': self.env.user.partner_id.street or None,
+            'shipAddrPostCode': self.env.user.partner_id.zip or None,
+            'shipAddrState': self.env.user.partner_id.state_id.code or None,
+
+            'workPhone': {
+                'cc': '1',
+                'subscriber': self.env.user.partner_id.mobile or None
+            },
+
+            'mobilePhone': {
+                'cc': '1',
+                'subscriber': self.env.user.partner_id.mobile or None
+            }
+        }
+        return base64.b64encode(json.dumps(purchase_request).encode()).decode("ascii")
