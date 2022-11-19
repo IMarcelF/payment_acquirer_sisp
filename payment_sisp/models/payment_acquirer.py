@@ -13,6 +13,7 @@ class PaymentAcquirer(models.Model):
     sisp_pos_id = fields.Char(required_if_provider='sisp', groups='base.group_user', string='POS ID')
     sisp_pos_aut_code = fields.Char(required_if_provider='sisp', groups='base.group_user', string='POS AuthCode')
     sisp_endpoint = fields.Char(required_if_provider='sisp', groups='base.group_user', string='Endpoint')
+    sisp_3ds = fields.Boolean(groups='base.group_user', string='3Ds')
 
     @api.model
     def _get_compatible_acquirers(self, *args, is_validation=False, **kwargs):
