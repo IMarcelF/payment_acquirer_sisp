@@ -28,7 +28,6 @@ class PaymentTransaction(models.Model):
         sisp_tx_values = {
             'transactionCode': '1',
             'posID': self.acquirer_id.sisp_pos_id,
-            'posAutCode': self.acquirer_id.sisp_pos_aut_code,
             'merchantRef': self.reference,
             'merchantSession': 'S{}'.format(current_datetime.strftime("%Y%m%d%H%M%S")),
             'amount': round(processing_values['amount']),
@@ -95,7 +94,7 @@ class PaymentTransaction(models.Model):
             self._set_error(state_message=error)
 
     def _generate_request_fingerprint(self, kwargs):
-        to_hash = base64.b64encode(hashlib.sha512(bytes(kwargs['posAutCode'], "ascii")).digest()).decode("ascii")
+        to_hash = base64.b64encode(hashlib.sha512(bytes(self.acquirer_id.sisp_pos_aut_code, "ascii")).digest()).decode("ascii")
         to_hash = '{}{}{}{}{}{}{}{}{}{}'.format(
             to_hash,
             kwargs['timeStamp'],
@@ -119,7 +118,7 @@ class PaymentTransaction(models.Model):
             kwargs['merchantRespTid'],
             kwargs['merchantRespMerchantRef'],
             kwargs['merchantRespMerchantSession'],
-            kwargs['merchantRespPurchaseAmount'],
+            int(float(kwargs['merchantRespPurchaseAmount']) * 1000),
             kwargs['merchantRespMessageID'],
             kwargs['merchantRespPan'],
             kwargs['merchantResp'],
@@ -127,7 +126,7 @@ class PaymentTransaction(models.Model):
             kwargs['merchantRespReferenceNumber'],
             kwargs['merchantRespEntityCode'],
             kwargs['merchantRespClientReceipt'],
-            kwargs['merchantRespAdditionalErrorMessage'],
+            kwargs['merchantRespAdditionalErrorMessage'].strip(),
             kwargs['merchantRespReloadCode']
         )
         return base64.b64encode(hashlib.sha512(bytes(to_hash, "ascii")).digest()).decode("ascii")
