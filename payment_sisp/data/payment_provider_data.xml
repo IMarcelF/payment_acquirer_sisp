@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="payment_provider_sisp" model="payment.provider">
+        <field name="code">sisp</field>
+        <field name="name">SISP</field>
+        <field name="image_128" type="base64" file="payment_sisp/static/description/icon.png"/>
+        <field name="redirect_form_view_id" ref="redirect_form"/>
+        <field name="payment_icon_ids"
+               eval="[(6, 0, [
+                    ref('payment.payment_icon_cc_visa'),
+                    ref('payment.payment_icon_cc_mastercard'),
+               ])]"/>
+        <!--<field name="allow_tokenization">True</field> -->
+    </record>
+
+</odoo>

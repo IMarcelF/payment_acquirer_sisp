@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="payment_provider_form" model="ir.ui.view">
+        <field name="name">SISP Provider Form</field>
+        <field name="model">payment.provider</field>
+        <field name="inherit_id" ref="payment.payment_provider_form"/>
+        <field name="arch" type="xml">
+            <group name="provider_credentials" position="inside">
+                <group attrs="{'invisible': [('code', '!=', 'sisp')]}">
+                    <field name="sisp_pos_id" string="POS ID" attrs="{'required': [('code', '=', 'sisp'), ('state', '!=', 'disabled')]}" password="True"/>
+                    <field name="sisp_pos_aut_code" string="POS Aut Code" attrs="{'required': [('code', '=', 'sisp'), ('state', '!=', 'disabled')]}" password="True"/>
+                    <field name="sisp_endpoint" string="Endpoint" attrs="{'required': [('code', '=', 'sisp'), ('state', '!=', 'disabled')]}"/>
+                    <field name="sisp_3ds" string="3Ds"/>
+                    <!--<field name="sisp_entity_code" string="Entity Code" placeholder="Código da entidade (optional)"/>-->
+                </group>
+            </group>
+        </field>
+    </record>
+
+</odoo>

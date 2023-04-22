@@ -2,7 +2,7 @@
 ###############################################################################
 #
 #    Marcel YEKINI
-#    Copyright (C) 2022-TODAY Marcel YEKINI (<iekinyfernandes@gmail.com>).
+#    Copyright (C) 2022 Marcel YEKINI (<iekinyfernandes@gmail.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,7 +20,7 @@
 ###############################################################################
 {
     'name': 'SISP Payment Acquirer | Cape-verdean Payment Gateway Integration',
-    'category': 'Accounting/Payment Acquirers',
+    'category': 'Accounting/Payment Providers',
     'sequence': 380,
     'summary': 'Payment Acquirer: SISP Implementation (Cabo Verde)',
     'version': '1.0',
@@ -28,16 +28,14 @@
     "author": "MARCEL YEKINI",
     'support': 'iekinyfernandes@gmail.com',
     "images": ["static/description/assets/img/main_screenshot.png"],
-    'live_test_url': '#',
     'license': 'LGPL-3',
     'depends': ['payment'],
     'data': [
-        'views/payment_templates.xml',
         'views/payment_sisp_templates.xml',
-        'data/payment_acquirer_data.xml',
+        'views/payment_provider_views.xml',
+        'data/payment_provider_data.xml',
     ],
-    'uninstall_hook': 'uninstall_hook',
-    'installable': True,
     'application': True,
-    'auto_install': False,
+    'post_init_hook': 'post_init_hook',
+    'uninstall_hook': 'uninstall_hook'
 }
