@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="acquirer_form_sisp" model="ir.ui.view">
+        <field name="name">payment.acquirer.form.inherit</field>
+        <field name="model">payment.acquirer</field>
+        <field name="inherit_id" ref="payment.acquirer_form"/>
+        <field name="arch" type="xml">
+            <xpath expr='//group[@name="acquirer"]' position='inside'>
+                <group attrs="{'invisible': [('provider', '!=', 'sisp')]}">
+                    <field name="sisp_pos_id" attrs="{'required':[ ('provider', '=', 'sisp'), ('state', '!=', 'disabled')]}" password="True"/>
+                    <field name="sisp_pos_aut_code" attrs="{'required':[ ('provider', '=', 'sisp'), ('state', '!=', 'disabled')]}" password="True"/>
+                    <field name="sisp_endpoint" attrs="{'required':[ ('provider', '=', 'sisp'), ('state', '!=', 'disabled')]}"/>
+                    <field name="sisp_3ds" string="3Ds"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <template id="sisp_form">
 
-    <template id="redirect_form">
-        <form t-att-action="api_url" method="post">
+            <input type="hidden" name="data_set" t-att-data-action-url="tx_url + '?' + query_string" data-remove-me=""/>
+
             <input type="hidden" name='transactionCode' t-att-value='transactionCode'/>
             <input type="hidden" name='posID' t-att-value='posID'/>
             <input type="hidden" name='merchantRef' t-att-value='merchantRef'/>
@@ -18,7 +19,5 @@
             <input type="hidden" name='referenceNumber' t-att-value='referenceNumber'/>
             <input type="hidden" name='fingerprint' t-att-value='fingerprint'/>
             <input type="hidden" name='purchaseRequest' t-att-value='purchaseRequest'/>
-        </form>
-    </template>
-
+        </template>
 </odoo>

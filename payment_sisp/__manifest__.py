@@ -32,12 +32,13 @@
     'license': 'LGPL-3',
     'depends': ['payment'],
     'data': [
-        'views/payment_templates.xml',
+        'views/payment_views.xml',
         'views/payment_sisp_templates.xml',
         'data/payment_acquirer_data.xml',
     ],
-    'uninstall_hook': 'uninstall_hook',
     'installable': True,
     'application': True,
     'auto_install': False,
+    'post_init_hook': 'create_missing_journal_for_acquirers',
+    'uninstall_hook': 'uninstall_hook',
 }

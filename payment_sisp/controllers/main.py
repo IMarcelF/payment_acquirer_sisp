@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-
 
-import logging
-import pprint
-from odoo import http
+from odoo import http, _
 from odoo.http import request
+import pprint
+import werkzeug
+import logging
+
 
 _logger = logging.getLogger(__name__)
 
-
 class PaymentSispController(http.Controller):
 
-    @http.route('/payment/sisp/response', type='http', auth='public', methods=['POST'], csrf=False, save_session=False)
-    def sisp_payment_response(self, **data):
-        _logger.info("Received SISP return data:\n%s", pprint.pformat(data))
-        request.env['payment.transaction'].sudo()._handle_feedback_data('sisp', data)
-        return request.redirect('/payment/status')
+    @http.route('/payment/sisp/response', type='http',  methods=['POST'], auth='public', csrf=False)
+    def sisp_response(self, **post):
+        _logger.info('SISP: entering form_feedback with post response data %s', pprint.pformat(post))
+        if post:
+            request.env['payment.transaction'].sudo().form_feedback(post, 'sisp')
+        return werkzeug.utils.redirect('/payment/process')

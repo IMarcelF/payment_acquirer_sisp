@@ -1,36 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
-    <record id="payment_acquirer_sisp" model="payment.acquirer">
-        <field name="name">SISP</field>
-        <field name="provider">sisp</field>
-        <field name="display_as">SISP: Credit Card</field>
-        <field name="sequence">99</field>
-        <field name="provider">sisp</field>
-        <field name="image_128" type="base64" file="payment_sisp/static/description/icon.png"/>
-        <field name="description" type="html">
-            <p>A payment gateway to accept online payments via credit cards.</p>
-            <ul class="list-inline">
-                <li class="list-inline-item"><i class="fa fa-check"/>Online Payment</li>
-                <li class="list-inline-item"><i class="fa fa-check"/>Payment Status Tracking</li>
-            </ul>
-        </field>
-        <field name="payment_icon_ids" eval='[(6, 0, [
-                                                        ref("payment.payment_icon_cc_mastercard"),
-                                                        ref("payment.payment_icon_cc_visa")
-                                                      ]
-                                                )]'/>
-        <field name="redirect_form_view_id" ref="redirect_form"/>
-        <field name="support_authorization">False</field>
-        <field name="support_fees_computation">False</field>
-        <field name="support_refund"></field>
-        <field name="support_tokenization">False</field>
-    </record>
-
-    <record id="payment_method_sisp" model="account.payment.method">
-        <field name="name">SISP</field>
-        <field name="code">sisp</field>
-        <field name="payment_type">inbound</field>
-    </record>
-
+    <data>
+        <record id="payment_acquirer_sisp" model="payment.acquirer">
+            <field name="name">SISP</field>
+            <field name="display_as">SISP: Credit Card</field>
+            <field name="sequence">99</field>
+            <field name="provider">sisp</field>
+            <field name="image_128" type="base64" file="payment_sisp/static/description/icon.png"/>
+            <field name="description" type="html">
+                <p>A payment gateway to accept online payments via credit cards.</p>
+                <ul class="list-inline">
+                    <li class="list-inline-item"><i class="fa fa-check"/>Online Payment</li>
+                    <li class="list-inline-item"><i class="fa fa-check"/>Payment status tracking</li>
+                </ul>
+            </field>
+            <field name="payment_icon_ids" eval='[(6, 0, [
+                                                            ref("payment.payment_icon_cc_mastercard"),
+                                                            ref("payment.payment_icon_cc_visa")
+                                                          ]
+                                                    )]'/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="view_template_id" ref="sisp_form"/>
+        </record>
+    </data>
 </odoo>
